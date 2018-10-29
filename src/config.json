@@ -1,0 +1,21 @@
+{
+  "reports": {
+    "report": {
+      "title": "cotizador seguro clinica santa maria",
+      "frequency": "daily",
+      "hour": "09:00",
+      "configMailing": {
+        "mailFrom": "francisco.campos@fusiona.cl",
+        "mailFromPass": "xxx",
+        "mailTo": [
+          "franciscojavier.c.c@gmail.com",
+          "francisco.campos@fusiona.cl"
+        ],
+        "subject": "Informe seguro clinica santa maria",
+        "message": "Estimados, buenas tardes. Adjunto informe. \n\n Saludos."
+      },
+      "query": "select * from users",
+      "headers": ["name", "username", "email"]
+    }
+  }
+}
