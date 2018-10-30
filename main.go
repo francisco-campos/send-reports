@@ -3,9 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"log"
-	"net/smtp"
 	"os"
+	"send-reports/email"
 )
 
 const addrMailSender = "smtp.gmail.com:587"
@@ -49,18 +48,6 @@ func LoadConfiguration(file string) Reports {
 	return reports
 }
 
-//SendEmail envia correo electronico
-func SendEmail(from string, pass string, to []string, body string) {
-	err := smtp.SendMail(addrMailSender,
-		smtp.PlainAuth("", from, pass, hostMailSender),
-		from, to, []byte(body))
-
-	if err != nil {
-		log.Printf("error SendEmail: %s", err)
-		return
-	}
-}
-
 func generateReport(report Report) string {
 	return ""
 }
@@ -76,6 +63,10 @@ func main() {
 
 	for _, element := range reports.Reports {
 		reportPath := generateReport(element)
-		//SendEmail(element.ConfigMailing, reportPath)
+		mailTo := element.ConfigMailing.MailTo
+		from := element.ConfigMailing.MailFrom
+		fromPass := element.ConfigMailing.MailFromPass
+
+		email.SendEmail(from, fromPass, mailTo, "Hola!", reportPath)
 	}
 }
