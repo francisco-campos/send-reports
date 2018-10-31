@@ -67,6 +67,9 @@ func main() {
 		mailTo := element.ConfigMailing.MailTo
 		from := element.ConfigMailing.MailFrom
 		fromPass := element.ConfigMailing.MailFromPass
-		email.SendEmail(from, fromPass, mailTo, "Hola!", reportPath)
+		subject := element.ConfigMailing.Subject
+		message := element.ConfigMailing.Message
+
+		email.SendEmail(from, fromPass, mailTo, subject, message, reportPath)
 	}
 }
