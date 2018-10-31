@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"send-reports/email"
+
+	"./email"
 )
 
 const addrMailSender = "smtp.gmail.com:587"
@@ -46,10 +47,6 @@ func LoadConfiguration(file string) ConfigJson {
 	jsonParser.Decode(&reports)
 	configFile.Close()
 	return reports
-}
-
-func Sum(num int, num2 int) int {
-	return (num + num2)
 }
 
 func generateReport(report Report) string {
