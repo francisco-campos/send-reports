@@ -10,8 +10,8 @@ import (
 const addrMailSender = "smtp.gmail.com:587"
 const hostMailSender = "smtp.gmail.com"
 
-//Reports struct represent the structure complete of config.json
-type Reports struct {
+//ConfigJson struct represent the structure complete of config.json
+type ConfigJson struct {
 	Reports []Report `json:"reports"`
 }
 
@@ -34,10 +34,10 @@ type ConfigMailing struct {
 	Message      string   `json:"message"`
 }
 
-var reports Reports
-
 //LoadConfiguration carga configuracion de archivo json
-func LoadConfiguration(file string) Reports {
+func LoadConfiguration(file string) ConfigJson {
+	var reports ConfigJson
+	fmt.Println("cargando la configuración...")
 	configFile, err := os.Open(file)
 	if err != nil {
 		fmt.Println("error cargar la configuracion: " + err.Error())
@@ -48,25 +48,28 @@ func LoadConfiguration(file string) Reports {
 	return reports
 }
 
+func Sum(num int, num2 int) int {
+	return (num + num2)
+}
+
 func generateReport(report Report) string {
 	return ""
 }
 
 func main() {
-	fmt.Println("Comenzando ejecución!")
+	fmt.Println("Comenzando ejecución.")
 	filePath := "./config.json"
-	reports = LoadConfiguration(filePath)
-	reportsCount := len(reports.Reports)
+	config := LoadConfiguration(filePath)
+	reportsCount := len(config.Reports)
 	if reportsCount == 0 {
 		fmt.Printf("No existen reportes para enviar.\n")
 	}
 
-	for _, element := range reports.Reports {
+	for _, element := range config.Reports {
 		reportPath := generateReport(element)
 		mailTo := element.ConfigMailing.MailTo
 		from := element.ConfigMailing.MailFrom
 		fromPass := element.ConfigMailing.MailFromPass
-
 		email.SendEmail(from, fromPass, mailTo, "Hola!", reportPath)
 	}
 }

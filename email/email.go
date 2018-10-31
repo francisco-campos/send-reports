@@ -14,6 +14,7 @@ func SendEmail(from string, pass string, to []string, body string, file string) 
 		smtp.PlainAuth("", from, pass, hostMailSender),
 		from, to, []byte(body))
 
+	log.Printf("correo enviado: %s", from)
 	if err != nil {
 		log.Printf("error SendEmail: %s", err)
 	}
