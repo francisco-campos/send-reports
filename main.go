@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"./email"
+	"./report"
 )
 
 const addrMailSender = "smtp.gmail.com:587"
@@ -63,13 +64,13 @@ func main() {
 	}
 
 	for _, element := range config.Reports {
-		reportPath := generateReport(element)
 		mailTo := element.ConfigMailing.MailTo
 		from := element.ConfigMailing.MailFrom
 		fromPass := element.ConfigMailing.MailFromPass
 		subject := element.ConfigMailing.Subject
 		message := element.ConfigMailing.Message
 
+		reportPath := report.Generate(element.Title, element.Query, element.Headers)
 		email.SendEmail(from, fromPass, mailTo, subject, message, reportPath)
 	}
 }

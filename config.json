@@ -17,5 +17,11 @@
       "query": "select * from users",
       "headers": ["name", "username", "email"]
     }
-  ]
+  ],
+  "database": {
+    "host": "",
+    "user": "",
+    "pass": "",
+    "database": ""
+  }
 }
